@@ -17,7 +17,7 @@ create the 'oss' and 'user' executables.
 
 To run the 'oss' program, use the following command:
 
-''' bash./oss [-h] [-n proc] [-s simul] [-t iter] '''
+``` bash./oss [-h] [-n proc] [-s simul] [-t iter] ```
 
 ## Problems encountered
 

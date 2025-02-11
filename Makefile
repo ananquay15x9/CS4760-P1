@@ -1,3 +1,8 @@
+# Author: Tu Le
+# Date: 2/8/2025
+# CS4760 Lab 1
+
+
 CC = gcc
 CFLAGS = -Wall -g
 OSS_TARGET = oss
@@ -20,5 +25,6 @@ oss.o: oss.c
 user.o: user.c
 	$(CC) $(CFLAGS) -c user.c
 
+# Apply clean rule
 clean:
 	rm -f $(OSS_TARGET) $(USER_TARGET) *.o

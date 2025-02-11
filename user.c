@@ -1,3 +1,7 @@
+// Author: Tu Le
+// Date: 2/9/2025
+// CS4760 Lab 1
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>

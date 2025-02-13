@@ -1,3 +1,5 @@
+# Author: Tu Le
+# Date: 2/12/2025
 # CS4760 Project 1 
 
 This project demonstrates basic process management in C using 'fork()', 'exec()', and 'wait()'. It consists two programs:

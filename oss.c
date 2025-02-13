@@ -16,16 +16,16 @@ int main(int argc, char **argv) {
 	// Switch statement options aka parse command options
 	while ((opt = getopt(argc,(char * const *)argv, "hn:s:t:"))!= -1) {
 		switch(opt) {
-			case 'h':
+			case 'h': //Help option
 				printf("Usage: %s [-h] [-n proc] [-s simul] [-t iter]\n", argv[0]);
 				exit(0);
-			case 'n':
+			case 'n': // Number of child processes
 				num_children = atoi(optarg);
 				break;
-			case 's':
+			case 's': // Number of simultaneous child allowed
 				simul_children = atoi(optarg);
 				break;
-			case 't':
+			case 't': // Number of iterations for each child
 				user_iterations = atoi(optarg);
 				break;
 			default:
@@ -41,7 +41,8 @@ int main(int argc, char **argv) {
 
 	int children_running = 0;
 	printf("OSS: Master process %d is ready to launch child processes.\n", getpid());
-
+	
+	//Loop to create child processes
 	for (int i = 0; i < num_children; i++) {
 		while (children_running >= simul_children) {
 			printf("OSS: Waiting for a child process to finish...\n");
@@ -49,20 +50,21 @@ int main(int argc, char **argv) {
 			children_running--;
 		}
 
+		// Fork a new child process
 		pid_t pid = fork();
 		if (pid == 0) { // Child process
 			char iterations_str[32];
 			sprintf(iterations_str, "%d", user_iterations);
 			printf("USER: Child process %d reporting for duty! (Parent is %d)\n", getpid(), getppid());
 			execl("./user", "user", iterations_str, (char *)NULL);
-			perror("USER: Error: execl failed!");
-			exit(1);
+			perror("USER: Error: execl failed!"); // If excel fails, print an error
+			exit(1); // Exit with error code
 		} else if (pid > 0) { // Parent process
 			printf("OSS: Launched child process %d.\n", pid);
 			children_running++;
-		} else {
+		} else { // Fork failed
 			perror("OSS: Error: fork failed!");
-			exit(1);
+			exit(1); // Exit with an error code
 		}
 	}
 	// Wait until all children is finished
